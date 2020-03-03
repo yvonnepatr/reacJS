@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import Footer from './modules/admin/Footer';
 import Header from './modules/admin/Header';
 import Products from './modules/admin/Products';
-import EditProducts from './modules/admin/EditProducts';
+import EditProduct from './modules/admin/EditProduct';
 import NewProducts from './modules/admin/NewProducts';
 function App() {
   return (
@@ -17,10 +17,8 @@ function App() {
             <Route path="/products/new">
               <NewProducts />
             </Route>
-            <Route path="/products/:id">
-              <EditProducts />
-            </Route>
-        </Switch>
+            <Route path="/products/:id" component={EditProduct} />
+          </Switch>
       </Router>
       <Footer />
     </div>
