@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Product from './Product';
 import SearchProduct from './SearchProduct';
 
-const productos = [
+/*const productos = [
     {
         id: 2,
         name: 'Televisor 49" 4K UHD',
@@ -17,14 +17,25 @@ const productos = [
         price: '1299.00',
         stock: 5,
     }
-];
+];*/
 
 class Products extends Component {
     state = {
-        products: productos,
-        productsFiltered: productos,
+        products: [],
+        productsFiltered: [],
         titles: ['#', 'Nombre', 'Detalle', 'Precio', 'Stock', 'Acciones']
     };
+
+    componentDidMount(){
+        fetch('http://localhost:4000/products')
+        .then(response => response.json())
+        .then(data =>{
+            this.setState({
+                products:data,
+                productsFiltered:data
+            });
+        });
+    }
 
     handleRemove = (id) => {
         this.setState((prevState) => {
