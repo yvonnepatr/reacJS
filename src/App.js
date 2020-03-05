@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch,Redirect} from 'react-router-dom';
 import Footer from './modules/admin/Footer';
 import Header from './modules/admin/Header';
 import Products from './modules/admin/Products';
@@ -11,6 +11,7 @@ function App() {
       <Header />
         <Router>
           <Switch>
+            <Redirect exact from="/" to="/products" /> 
             <Route exact path="/products">
               <Products />
             </Route>

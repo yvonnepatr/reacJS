@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+
 
 const NewProduct=()=>{
     return (
-        <div>New Products</div>
+        <div><ProductForm /></div>
     );
 };
 

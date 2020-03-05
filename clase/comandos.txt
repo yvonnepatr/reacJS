@@ -1,0 +1,10 @@
+touch db.json
+json-server --op
+
+
+/**FORMULARIOS ***/
+
+validacion de formularios
+
+npm install -save formik
+npm install -save yup

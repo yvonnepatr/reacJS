@@ -1,0 +1,31 @@
+1...
+class Papa{   
+  constructor(...hijos)
+  {
+    this.hijos=hijos;
+  }
+  
+  showHijos()
+  {
+    this.hijos.map((hijo)=> console.log(hijo) );
+  }
+  
+}
+
+let papa = new Papa("carlos", "miguel", "jose","maria");
+papa.showHijos();
+
+2....
+const items= [1,2,45,6,7,52];
+let mayor=items[0];
+elementos.map((item)=>{
+  	console.log(item + "-" + mayor);
+  	
+	if(item>mayor){
+      mayor=item;
+    }
+})
+console.log("mayor="+mayor);
+
+3... 
+3....

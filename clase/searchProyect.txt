@@ -1,0 +1,30 @@
+import React, { Component } from 'react'
+
+class SearchProduct extends Component {
+    state = {
+        searchValue ''
+    }
+
+    handleChange = (e) = {
+        this.setState({
+            searchValue e.target.value
+        });
+    }
+
+    handleClick = (e) = {
+        this.props.onSearch(this.state.searchValue);
+    }
+
+    render() {
+        const { searchValue } = this.state;
+
+        return (
+            div
+                input name= value={searchValue} onChange={this.handleChange} 
+                button onClick={this.handleClick} Buscarbutton
+            div
+        );
+    }
+}
+
+export default SearchProduct;

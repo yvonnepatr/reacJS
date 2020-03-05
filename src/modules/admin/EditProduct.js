@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import ProductsService from '../service/ProductService';
 
 class EditProduct extends Component{
     state ={
@@ -7,21 +7,17 @@ class EditProduct extends Component{
     };
    
  
-    componentDidMount(){
-       
-        fetch('http://localhost:4000/products/')
-        .then(response => response.json())
-        .then(data =>{
-            this.setState({
-                product:data
-            });
-        });
+    async componentDidMount (){
+       const {id} = this.props.match.params;
+       const {data:producto} = await ProductsService.getProductsById(id);
+       this.setState({product:producto});
+      
     }
     render(){
       // const {id} = props.match.params;
       return(
             <div>
-
+               Nombre Producto {this.state.product.name}
             </div>
 
       )  ;

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hello World</title>
+    <style>
+        .rojo {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <!-- Load React libraries -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <!-- Don't use this in production -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- In order to use JSX syntax set the type property like "text/babel" -->
+    <script type="text/babel" src="./app.js">
+        // // Elemento
+        // const element = <div className="rojo">Hola mundo</div>
+        
+        // // Componente
+        // function Main({ nombre }) {
+        //     return (
+        //         <div>
+        //             <h1>Componente principal:</h1>
+        //             <ul>
+        //                 {[element, element, element]}
+        //             </ul>
+        //             <p>
+        //                 Hola, { nombre }
+        //             </p>
+        //         </div>
+        //     );
+        // }
+
+        // ReactDOM.render(<Main nombre="Manuel"/>, root);
+    </script>
+    <script>
+        // const element = React.createElement('div', {
+        //     class: 'rojo'
+        // }, 'Hola mundo!', 'como estas?');
+
+        // ReactDOM.render(element, document.getElementById('root'));
+    </script>
+</body>
+</html>

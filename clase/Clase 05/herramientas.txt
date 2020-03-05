@@ -1,0 +1,9 @@
+node y npm
+npm i -g create-react-app
+npm i -g json-server
+npm i -g http-server
+
+npm i --save bulma react-router-dom axios
+
+touch db.json
+json-server -w db.json --port=4000
