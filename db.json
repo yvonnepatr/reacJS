@@ -1,17 +1,25 @@
 {
-  "products" : [ {
-    "id": 2,
-    "name": "Televisor 49  4K UHD",
-    "detail": "Modelo: 49UK6200",
-    "price": "1499.00",
-    "stock": 8
-},
-{
-    "id": 3,
-    "name": "Laptop 15 AMD A6 4GB 500GB",
-    "detail": "Módelo: IdeaPad 330",
-    "price": "1299.00",
-    "stock": 5
-}
-]
+  "products": [
+    {
+      "id": 2,
+      "name": "Televisor 49  4K UHD",
+      "detail": "Modelo: 49UK6200",
+      "price": "1499.00",
+      "stock": 8
+    },
+    {
+      "id": 3,
+      "name": "Laptop 15 AMD A6 4GB 500GB",
+      "detail": "Módelo: IdeaPad 330",
+      "price": "1299.00",
+      "stock": 5
+    },
+    {
+      "name": "Laptop HP 15\"",
+      "detail": "Descripcion dde la laptop",
+      "price": "1252.00",
+      "stock": 22,
+      "id": 4
+    }
+  ]
 }

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
+
 import Product from './Product';
 import SearchProduct from './SearchProduct';
-import ProductsService from '../service/ProductService';
+import ProductService from '../services/ProductService';
 
-/*const productos = [
+/* const productos = [
     {
         id: 2,
         name: 'Televisor 49" 4K UHD',
@@ -18,7 +20,7 @@ import ProductsService from '../service/ProductService';
         price: '1299.00',
         stock: 5,
     }
-];*/
+]; */
 
 class Products extends Component {
     state = {
@@ -27,56 +29,24 @@ class Products extends Component {
         titles: ['#', 'Nombre', 'Detalle', 'Precio', 'Stock', 'Acciones']
     };
 
-    async componentDidMount(){
-       
-        const {data:products} = await ProductsService.getProducts();
-        this.setState({products,productsFiltered:products});
-       
-        /* const response = await ProductsService.getProducts();
-        const products = await response.json();
-        this.setState({products,productsFiltered:products});*/
-
-       /* fetch('http://localhost:4000/products')
-        .then(response => response.json())
-        .then(data =>{
-            this.setState({
-                products:data,
-                productsFiltered:data
-            });
-        });*/
+    async componentDidMount() {
+        const { data: products } = await ProductService.getProducts();
+        this.setState({ products, productsFiltered: products });
     }
 
     handleRemove = async (id) => {
         try {
-             await ProductsService.deleteProduct(id);
-             this.setState((prevState)=>{
-                const products = prevState.products.filter((prod=>{
-                    return prod.id !== id; 
-                }))
-                
-                  return{products,productsFiltered:products};
-             });
-        } catch (error) {
-            console.log(error);
-        }
+            await ProductService.deleteProduct(id);
+            this.setState((prevState) => {
+                const products = prevState.products.filter((prod => {
+                    return prod.id !== id;
+                }));
 
-      /*  try {
-            const response =  await ProductsService.deleteProduct(id);
-        } catch (error) {
-            console.log(error);
-        }*/
-
-
-      /*const response =  await ProductsService.deleteProduct(id);
-      console.log(response);*/
-      /*
-        this.setState((prevState) => {
-            const products = prevState.products.filter((prod => {
-                return prod.id !== id;
-            }));
-
-            return { products };
-        });*/
+                return { products, productsFiltered: products };
+            });
+        } catch(e) {
+            console.log(e);
+        }        
     }
 
     onSearch = searchValue => {
@@ -99,11 +69,9 @@ class Products extends Component {
                         <h2 className="subtitle is-3">
                             Lista de productos
                         </h2>
-                       
                     </div>
-                   
                     <div className="level-right">
-                        <a className="button is-info">Nuevo Producto</a>
+                        <Link to="products/new" className="button is-info">Nuevo Producto</Link>
                     </div>
                 </div>
                 <SearchProduct onSearch={this.onSearch}/>

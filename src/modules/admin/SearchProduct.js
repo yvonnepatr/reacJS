@@ -1,20 +1,21 @@
-import React,  { Component } from 'react'
+import React, { Component } from 'react'
 
-class SearchProduct extends Component{
+class SearchProduct extends Component {
     state = {
         searchValue: ''
     }
-    handleChange=(e)=>{
+
+    handleChange = (e) => {
         this.setState({
-            searchValue : e.target.value
+            searchValue: e.target.value
         });
     }
 
-    handleClick = (e)=>{
-        this.props.onSearch(this.state.searchValue)
+    handleClick = (e) => {
+        this.props.onSearch(this.state.searchValue);
     }
 
-    render(){
+    render() {
         const { searchValue } = this.state;
         const styles = { margin: '1.5rem 0.3rem' };
 
@@ -38,11 +39,7 @@ class SearchProduct extends Component{
                 </div>
             </form>
         );
-        
     }
-
-
-
-    }
+}
 
 export default SearchProduct;

@@ -1,81 +1,124 @@
-import React from 'react';
-import {Formik} from 'formik';
+import React from 'react'
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-const ProductForm=()=>{
+const Productform = ({ title, product, handleSubmit }) => {
+    const ProductSchema = Yup.object({
+        name: Yup.string()
+            .min(6, 'minimo 5')
+            .required('requerido'),
+        detail: Yup.string()
+            .min(15)
+            .required(),
+        price: Yup.number()
+            .min(0)
+            .required(),
+        stock: Yup.number()
+            .min(0)
+            .required()
+    });
 
-    const producto ={
-        name:'',
-        detail:'',
-        price:'',
-        stock:0
-    };
-    return(
-        <Formik initialValues={producto} 
-            onSubmit={(values)=>{
-            console.log(values)
-            }}
-        >
-            {({
-                values,
-                handleChange,
-                handleSubmit
-            })=>(
-                <form onSubmit={handleSubmit} autoComplete="off">
-                    <input type="text" name="name"
-                    value={values.name}
-                     onChange={handleChange} 
-                     placeholder="Ingresar el nombre" />
-
-                    <button type="submit">Guardar</button>
-                </form>
-                            
-            )};
-        </Formik>
-
+    return (
+        <div className="container">
+            <div className="columns">
+                <div className="column is-8 is-offset-2">
+                    <Formik
+                        initialValues={product}
+                        onSubmit={(values, { setSubmitting } ) => {
+                            values.stock = parseInt(values.stock, 10);
+                            handleSubmit(values);
+                        }}
+                        validationSchema={ProductSchema}
+                    >
+                        {({
+                            values,
+                            handleChange,
+                            handleBlur,
+                            handleSubmit,
+                            touched,
+                            errors,
+                            isValid,
+                            isSubmitting
+                        }) => (
+                            <form onSubmit={handleSubmit} autoComplete="off">
+                                <div className="field">
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="input"
+                                            name="name"
+                                            value={values.name}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            placeholder="Nombre (min. 6 caracteres)"
+                                        />
+                                        { errors.name && touched.name ?
+                                        <p style={{ color: 'red'}}>{errors.name}</p>
+                                        : null}
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <div className="control">
+                                        <textarea
+                                            className="textarea"
+                                            name="detail"
+                                            value={values.detail}
+                                            onChange={handleChange}
+                                            placeholder="Detalle (min. 15 caracteres)"
+                                        >
+                                        </textarea>
+                                        { errors.detail && touched.detail ?
+                                        <p style={{ color: 'red'}}>Campo invalido</p>
+                                        : null}
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="input"
+                                            name="price"
+                                            value={values.price}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            placeholder="Pecio: ej. 15.99"
+                                        />
+                                        { errors.price && touched.price ?
+                                        <p style={{ color: 'red'}}>{errors.price}</p>
+                                        : null}
+                                    </div>
+                                </div>
+                                <div className="field">
+                                    <div className="control">
+                                        <input
+                                            className="input"
+                                            type="input"
+                                            name="stock"
+                                            value={values.stock}
+                                            onBlur={handleBlur}
+                                            onChange={handleChange}
+                                            placeholder="Stock: ej. 5"
+                                        />
+                                        { errors.stock && touched.stock ?
+                                        <p style={{ color: 'red'}}>{errors.stock}</p>
+                                        : null}
+                                    </div>
+                                </div>
+                                <div className="field is-grouped is-grouped-centered">
+                                    <button
+                                        type="button"
+                                        onClick={handleSubmit}
+                                        className="button is-dark"
+                                        disabled={ !isValid}
+                                    >{ title }</button>
+                                </div>
+                            </form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
+        </div>
     )
-}
+};
 
-export default ProductForm;
-
-/*
-class ProductForm extends Component {
-state = {
-    name:'',
-    detail:''
-}
-handleChange = (e)=>{
-    const {value,name} = e.target;
-    this.setState({[name]:value});
-}
-
-handleSubmit= (e)=>{
-    e.preventDefault();
-    console.log(this.state);
-}
-    render(){
-        const{name,detail} = this.state;
-     return(
-
-        <form onSubmit={this.handleSubmit} autoComplete="off"> 
-        <div>
-            <input name="name" type="input" value={name} onChange={this.handleChange} placeholder="Ingresar el Nombre"/>
-        {
-            name.length<5?
-            <p style={{color: 'red'}}>El campo es requerido</p>
-            : null
-        }
-        </div>
-        <div>
-            <textarea name="detail" type="input" value={detail} onChange={this.handleChange} 
-            placeholder="Ingresar el detalle"></textarea>
-        </div>
-        <div>
-            <button disabled={name.length<=0 || detail.length<=0}>Guardar </button>
-        </div>
-    </form>
-     )  
-        
-    }
-}
-
-export default ProductForm;*/
+export default Productform;

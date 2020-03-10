@@ -1,35 +1,51 @@
 import React, { Component } from 'react'
-import ProductsService from '../service/ProductService';
 
-class EditProduct extends Component{
+import ProductService from '../services/ProductService';
+import ProductForm from './ProductForm';
+class EditProduct extends Component {
+
     state ={
-        product:{}
-    };
-   
- 
-    async componentDidMount (){
-       const {id} = this.props.match.params;
-       const {data:producto} = await ProductsService.getProductsById(id);
-       this.setState({product:producto});
-      
+        product:null
     }
-    render(){
-      // const {id} = props.match.params;
-      return(
-            <div>
-               Nombre Producto {this.state.product.name}
-            </div>
+    async componentDidMount() {
+        const { id } = this.props.match.params;
+        
+        const { data: product } = await ProductService.getProductsById(id);
+       
+        this.setState({product})
+    }
 
-      )  ;
+    goBack(){
+        this.props.history.goBack();
+    }
+
+
+    handleUpdate = product => {
+        ProductService.updateProduct(product);
+        this.goBack();
+    }
+    
+    render() {
+     
+        const {product} = this.state;
+        return (
+             <div className="columns">
+                  <div className="column is-10 is-offset-1">
+                <h2 className="subtitle is-3 has-text-centered">
+                    Editar Producto</h2>
+                    {product ?
+                    <ProductForm
+                    product={this.state.product}
+                    title="Actualizar Producto"
+                    handleSubmit={this.handleUpdate}
+                    ></ProductForm>:null}
+                
+                </div> 
+            </div> 
+
+            
+        );
     }
 }
 
-/*
-const EditProduct = (props)=>{
-    const {id} = props.match.params;
-    return (
-    <div>Editar Producto <strong>{id}</strong></div>
-    );
-};
-*/
 export default EditProduct;
