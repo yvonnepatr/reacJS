@@ -1,37 +1,20 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Product from './Product';
 import SearchProduct from './SearchProduct';
 import ProductService from '../services/ProductService';
 
-/* const productos = [
-    {
-        id: 2,
-        name: 'Televisor 49" 4K UHD',
-        detail: 'Modelo: 49UK6200',
-        price: '1499.00',
-        stock: 8,
-    },
-    {
-        id: 3,
-        name: 'Laptop 15" AMD A6 4GB 500GB',
-        detail: 'Módelo: IdeaPad 330',
-        price: '1299.00',
-        stock: 5,
-    }
-]; */
+import { fetchProducts } from '../../actions/productActions';
 
 class Products extends Component {
     state = {
-        products: [],
-        productsFiltered: [],
         titles: ['#', 'Nombre', 'Detalle', 'Precio', 'Stock', 'Acciones']
     };
 
     async componentDidMount() {
-        const { data: products } = await ProductService.getProducts();
-        this.setState({ products, productsFiltered: products });
+        this.props.getProducts();
     }
 
     handleRemove = async (id) => {
@@ -60,7 +43,8 @@ class Products extends Component {
     }
 
     render() {
-        const { titles, productsFiltered } = this.state;
+        const { titles } = this.state;
+        const { productsFiltered } = this.props;
 
         return (
             <div className="column is-10 is-offset-1">
@@ -103,4 +87,28 @@ class Products extends Component {
     }
 }
 
-export default Products;
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        products: state.products.items,
+        productsFiltered: state.products.items
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getProducts: () => {
+            dispatch(fetchProducts());
+        }
+    }
+};
+
+const component = connect(mapStateToProps, mapDispatchToProps)(Products);
+export default component;
+
+// export default connect((state) => {
+//     return {
+//         products: state.products.items,
+//         productsFiltered: state.products.items
+//     };
+// }, {getProducts: fetchProducts})(Products);

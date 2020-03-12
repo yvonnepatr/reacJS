@@ -1,0 +1,13 @@
+touch db.json
+json-server --op
+json-server --watch db.json
+json-server --watch db.json --port 4000
+
+/**FORMULARIOS ***/
+
+validacion de formularios
+
+npm install -save formik
+npm install -save yup
+
+ npm i --save redux react-redux redux-logger redux-thunk

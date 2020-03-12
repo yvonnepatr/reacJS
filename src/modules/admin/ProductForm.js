@@ -2,7 +2,7 @@ import React from 'react'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-const Productform = ({ title, product, handleSubmit }) => {
+const Productform = ({ title, product, handleSubmit, back }) => {
     const ProductSchema = Yup.object({
         name: Yup.string()
             .min(6, 'minimo 5')
@@ -38,13 +38,13 @@ const Productform = ({ title, product, handleSubmit }) => {
                             touched,
                             errors,
                             isValid,
-                            isSubmitting
+                            isSubmitting,
                         }) => (
                             <form onSubmit={handleSubmit} autoComplete="off">
                                 <div className="field">
                                     <div className="control">
                                         <input
-                                            className="input"
+                                            className={ errors.name && touched.name ? 'input is-danger' : 'input' }
                                             type="input"
                                             name="name"
                                             value={values.name}
@@ -52,30 +52,35 @@ const Productform = ({ title, product, handleSubmit }) => {
                                             onChange={handleChange}
                                             placeholder="Nombre (min. 6 caracteres)"
                                         />
-                                        { errors.name && touched.name ?
-                                        <p style={{ color: 'red'}}>{errors.name}</p>
-                                        : null}
+                                        {
+                                            errors.name && touched.name
+                                            ? <p className="help is-danger">El nombre es requerido, debe contener al menos 6 caracteres</p>
+                                            : null
+                                        }
                                     </div>
                                 </div>
                                 <div className="field">
                                     <div className="control">
                                         <textarea
-                                            className="textarea"
+                                            className={ errors.detail && touched.detail ? 'textarea is-danger' : 'textarea' }
                                             name="detail"
                                             value={values.detail}
                                             onChange={handleChange}
+                                            onBlur={handleBlur}
                                             placeholder="Detalle (min. 15 caracteres)"
                                         >
                                         </textarea>
-                                        { errors.detail && touched.detail ?
-                                        <p style={{ color: 'red'}}>Campo invalido</p>
-                                        : null}
+                                        {
+                                            errors.detail && touched.detail
+                                            ? <p className="help is-danger">El detalle es requerido, debe contener al menos 15 caracteres</p>
+                                            : null
+                                        }
                                     </div>
                                 </div>
                                 <div className="field">
                                     <div className="control">
                                         <input
-                                            className="input"
+                                            className={ errors.price && touched.price ? 'input is-danger' : 'input' }
                                             type="input"
                                             name="price"
                                             value={values.price}
@@ -83,15 +88,17 @@ const Productform = ({ title, product, handleSubmit }) => {
                                             onChange={handleChange}
                                             placeholder="Pecio: ej. 15.99"
                                         />
-                                        { errors.price && touched.price ?
-                                        <p style={{ color: 'red'}}>{errors.price}</p>
-                                        : null}
+                                        {
+                                            errors.price && touched.price
+                                            ? <p className="help is-danger">El precio es requerido, debe ser númerico mayor a 1 y máximo 2 decimales.</p>
+                                            : null
+                                        }
                                     </div>
                                 </div>
                                 <div className="field">
                                     <div className="control">
                                         <input
-                                            className="input"
+                                            className={ errors.stock && touched.stock ? 'input is-danger' : 'input' }
                                             type="input"
                                             name="stock"
                                             value={values.stock}
@@ -99,17 +106,25 @@ const Productform = ({ title, product, handleSubmit }) => {
                                             onChange={handleChange}
                                             placeholder="Stock: ej. 5"
                                         />
-                                        { errors.stock && touched.stock ?
-                                        <p style={{ color: 'red'}}>{errors.stock}</p>
-                                        : null}
+                                        {
+                                            errors.stock && touched.stock
+                                            ? <p className="help is-danger">El stock es requerido, debe ser númerico y mayor o igual a 0.</p>
+                                            : null
+                                        }
                                     </div>
                                 </div>
                                 <div className="field is-grouped is-grouped-centered">
                                     <button
                                         type="button"
+                                        onClick={back}
+                                        className="button"
+                                        style={{ margin: '0 16px' }}
+                                    >Regresar</button>
+                                    <button
+                                        type="button"
                                         onClick={handleSubmit}
                                         className="button is-dark"
-                                        disabled={ !isValid}
+                                        disabled={ !isValid || isSubmitting }
                                     >{ title }</button>
                                 </div>
                             </form>

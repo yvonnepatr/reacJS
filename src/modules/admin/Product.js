@@ -17,7 +17,7 @@ const Product = ({ data, removeProduct, index }) => {
                 <td className="has-text-grey">{ data.price }</td>
                 <td className={type}>{ data.stock }</td>
                 <td className="has-text-grey">
-                    <Link to={`/${data.id}`}
+                    <Link to={`products/${data.id}`}
                         className="button is-small is-info"
                         style={styles}>Editar</Link>
                     <button className="button is-small is-danger" onClick={() => {
